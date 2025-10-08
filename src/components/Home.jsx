@@ -146,13 +146,15 @@ export default function Home() {
         <main className="flex-1 flex flex-col overflow-auto">
           <div className="flex justify-between items-center px-6 py-4 border-b border-gray-700">
             <h2 className="text-lg font-semibold text-white">Comercios</h2>
+            
             <select
               value={sortOrder}
               onChange={(e) => setSortOrder(e.target.value)}
               className="bg-[#1F2937] border border-gray-600 rounded px-3 py-1 text-sm text-white"
             >
-              <option value="A-Z">De la A - Z</option>
-              <option value="Z-A">De la Z - A</option>
+              
+              <option value="A-Z">Ordenar por : A - Z</option>
+              <option value="Z-A">Ordenar por : Z - A</option>
             </select>
           </div>
 
