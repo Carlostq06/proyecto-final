@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getComercios } from "../services/api";
 import Header from "./Header";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const [comercios, setComercios] = useState([]);
@@ -76,15 +77,13 @@ export default function Home() {
         {/* Sidebar */}
         <aside className="w-64 bg-[#1F2937] p-5 flex flex-col gap-6 border-r border-gray-700 overflow-auto">
           <div className="flex items-center gap-2">
-   
-    <h2 className="text-[22px] font-bold text-green-400 mb-4 flex items-center gap-2">
-      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h18M6 12h12M10 20h4" />
-      </svg>
-      Filtros
-    </h2>
-
-  </div>
+            <h2 className="text-[22px] font-bold text-green-400 mb-4 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4h18M6 12h12M10 20h4" />
+              </svg>
+              Filtros
+            </h2>
+          </div>
 
           {/* Categoría */}
           <div>
@@ -163,10 +162,10 @@ export default function Home() {
               <p className="text-gray-400 col-span-4 text-center">No se encontraron comercios.</p>
             ) : (
               currentItems.map((c) => (
-                <div
+                <Link
                   key={c.id}
-                  className="bg-[#1F2937] rounded-xl overflow-hidden shadow-lg hover:shadow-green-500/20 transition cursor-pointer"
-                  onClick={() => window.location.href = `/comercio/${c.id}`}
+                  to={`/comercio/${c.id}`}
+                  className="block bg-[#1F2937] rounded-xl overflow-hidden shadow-lg hover:shadow-green-500/20 transition cursor-pointer"
                 >
                   <img src={c.image} alt={c.name} className="w-full h-40 object-cover" />
                   <div className="p-4 space-y-1">
@@ -177,7 +176,7 @@ export default function Home() {
                       <span className="text-gray-400">{c.nscore} reseñas</span>
                     </div>
                   </div>
-                </div>
+                </Link>
               ))
             )}
           </div>
@@ -198,9 +197,7 @@ export default function Home() {
               {Array.from({ length: totalPages }, (_, i) => (
                 <button
                   key={i}
-                  className={`px-3 py-1 rounded ${
-                    currentPage === i + 1 ? "bg-green-500" : "bg-gray-700 hover:bg-gray-600"
-                  }`}
+                  className={`px-3 py-1 rounded ${currentPage === i + 1 ? "bg-green-500" : "bg-gray-700 hover:bg-gray-600"}`}
                   onClick={() => goToPage(i + 1)}
                 >
                   {i + 1}

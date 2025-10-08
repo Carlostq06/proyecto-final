@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { loginComercio } from "../services/api";
 import { Mail, Lock } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
@@ -90,7 +90,9 @@ export default function LoginComercio() {
               </button>
 
               <p className="text-center text-gray-400 text-sm mt-6">
-                <a href="/login" className="text-green-400 hover:underline">Volver</a>
+                <Link to="/login" className="text-green-400 hover:underline">
+                  Volver
+                </Link>
               </p>
             </Form>
           )}

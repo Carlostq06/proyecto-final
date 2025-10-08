@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { updateUser, deleteUser, addComercio, getComercios, deleteComercio } from "../services/api";
 
@@ -133,7 +134,9 @@ export default function UserProfile() {
   return (
     <div className="relative bg-[#111827] min-h-screen text-white flex justify-center items-center p-6">
       {/* Botón Volver */}
-      <button onClick={() => window.history.back()} className="absolute top-4 left-4 px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">Volver</button>
+      <Link to="/home2" className="absolute top-4 left-4 px-3 py-1 rounded bg-gray-700 hover:bg-gray-600">
+        Volver
+      </Link>
 
       <div className="flex flex-col items-center w-full max-w-lg">
         {/* Info Usuario */}

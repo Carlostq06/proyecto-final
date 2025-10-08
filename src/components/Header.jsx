@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Header({ search, setSearch, setShowAddModal }) {
   const { user, logout } = useAuth();
@@ -28,9 +28,9 @@ export default function Header({ search, setSearch, setShowAddModal }) {
 
   return (
     <header className="flex items-center justify-between px-6 py-4 border-b border-gray-700 bg-[#1F2937] relative">
-      <h1 className="text-3xl font-bold text-green-400 cursor-pointer" onClick={() => navigate("/")}>
+      <Link to="/" className="text-3xl font-bold text-green-400 cursor-pointer">
         LinkComercs
-      </h1>
+      </Link>
 
       <div className="relative w-64">
         <input
@@ -87,18 +87,18 @@ export default function Header({ search, setSearch, setShowAddModal }) {
           </>
         ) : (
           <div className="flex gap-2">
-            <button
-              onClick={() => navigate("/login")}
+            <Link
+              to="/login"
               className="bg-green-500 hover:bg-green-600 px-4 py-2 rounded text-white"
             >
               Login
-            </button>
-            <button
-              onClick={() => navigate("/register")}
+            </Link>
+            <Link
+              to="/register"
               className="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded text-white"
             >
               Registrar
-            </button>
+            </Link>
           </div>
         )}
       </div>

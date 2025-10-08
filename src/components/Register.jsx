@@ -1,6 +1,6 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { User, Mail, Lock, MapPin, Calendar } from "lucide-react";
 import { registerUser } from "../services/api";
 
@@ -196,9 +196,9 @@ export default function Register() {
 
         <p className="text-center text-gray-400 text-sm mt-6">
           ¿Ya tienes una cuenta?{" "}
-          <a href="/login" className="text-green-400 hover:underline">
+          <Link to="/login" className="text-green-400 hover:underline">
             Inicia sesión
-          </a>
+          </Link>
         </p>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { getComercioById, updateComercio, deleteComercio } from "../services/api";
 import { useAuth } from "../context/AuthContext";
 
@@ -10,16 +10,13 @@ export default function ComercioDetalle() {
 
   const [comercio, setComercio] = useState(null);
 
-  // Reseñas
   const [reviewText, setReviewText] = useState("");
   const [reviewScore, setReviewScore] = useState("");
 
-  // Publicaciones
   const [pubTitle, setPubTitle] = useState("");
   const [pubDesc, setPubDesc] = useState("");
   const [pubImage, setPubImage] = useState("");
 
-  // Modal editar
   const [editingPubIndex, setEditingPubIndex] = useState(null);
   const [editTitle, setEditTitle] = useState("");
   const [editDesc, setEditDesc] = useState("");
@@ -42,7 +39,6 @@ export default function ComercioDetalle() {
   const isOwner = user?.id === comercio.id;
   const canReview = user && !isOwner;
 
-  // Agregar reseña
   const handleAddReview = async () => {
     if (!reviewText || !reviewScore) return;
     const newScore = parseFloat(reviewScore);
@@ -67,7 +63,6 @@ export default function ComercioDetalle() {
     }
   };
 
-  // Crear publicación
   const handleAddPublication = async () => {
     if (!pubTitle || !pubDesc || !pubImage) return;
 
@@ -93,7 +88,6 @@ export default function ComercioDetalle() {
     }
   };
 
-  // Editar publicación
   const openEditModal = (index) => {
     const pub = comercio.publications[index];
     setEditingPubIndex(index);
@@ -121,14 +115,13 @@ export default function ComercioDetalle() {
     }
   };
 
-  // Eliminar comercio
   const handleDeleteComercio = async () => {
     if (!window.confirm("¿Seguro que deseas eliminar tu comercio? Esta acción es irreversible.")) return;
 
     try {
-      await deleteComercio(comercio.id); // ✅ eliminar en la API correcta
-      logout(); // cerrar sesión
-      navigate("/login"); // redirigir al login
+      await deleteComercio(comercio.id);
+      logout();
+      navigate("/login");
     } catch (err) {
       console.error(err);
       alert("Error al eliminar el comercio ❌");
@@ -139,12 +132,12 @@ export default function ComercioDetalle() {
     <div className="flex flex-col h-screen bg-[#111827] text-white">
       {/* Botón volver y eliminar */}
       <div className="p-4 flex-shrink-0 flex justify-between items-center">
-        <button
-          onClick={() => navigate(-1)}
+        <Link
+          to={-1} // equivalente a navigate(-1)
           className="bg-gray-700 hover:bg-gray-600 px-4 py-2 rounded text-white"
         >
           ← Volver
-        </button>
+        </Link>
         {isOwner && (
           <button
             onClick={handleDeleteComercio}

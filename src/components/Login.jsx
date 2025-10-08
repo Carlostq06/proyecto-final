@@ -3,7 +3,7 @@ import { Lock, Mail } from "lucide-react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { loginUser } from "../services/api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 // Validación con Yup
@@ -103,13 +103,16 @@ export default function Login() {
         </Formik>
 
         <p className="text-center text-gray-400 text-sm mt-6">
-          ¿No tienes cuenta? <a href="/register" className="text-green-400 hover:underline">Regístrate</a>
+          ¿No tienes cuenta?{" "}
+          <Link to="/register" className="text-green-400 hover:underline">
+            Regístrate
+          </Link>
         </p>
 
         <p className="text-center text-gray-400 text-sm mt-4">
-          <a href="/comercioLogin" className="text-green-400 hover:underline">
+          <Link to="/comercioLogin" className="text-green-400 hover:underline">
             Iniciar sesión como comercio
-          </a>
+          </Link>
         </p>
       </div>
     </div>
