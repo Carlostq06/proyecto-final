@@ -1,17 +1,26 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { updateUser, deleteUser, addComercio, getComercios, deleteComercio } from "../services/api";
-import { useNavigate } from "react-router-dom";
+
 export default function UserProfile() {
   const { user, logout, login } = useAuth();
+  const navigate = useNavigate();
+
+  // Redirigir al home si no hay usuario logueado
+  useEffect(() => {
+    if (!user) {
+      navigate("/", { replace: true });
+    }
+  }, [user, navigate]);
+
   const [showEditModal, setShowEditModal] = useState(false);
   const [showAddComercioModal, setShowAddComercioModal] = useState(false);
   const [showDeleteComercioModal, setShowDeleteComercioModal] = useState(false);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: user?.name || "",
     email: user?.email || "",
@@ -40,13 +49,18 @@ export default function UserProfile() {
 
   useEffect(() => {
     async function fetchComercios() {
-      const data = await getComercios();
-      setComercios(data);
+      try {
+        const data = await getComercios();
+        setComercios(data);
+      } catch (err) {
+        console.error("Error al cargar comercios:", err);
+      }
     }
     fetchComercios();
   }, []);
 
-  if (!user) return <p className="text-white p-4">Debes iniciar sesión</p>;
+  // Evitar render mientras redirige
+  if (!user) return null;
 
   const handleChange = (e) => setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   const handleComercioChange = (e) => setNewComercio(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -88,7 +102,7 @@ export default function UserProfile() {
     try {
       await deleteUser(user.id);
       logout();
-      navigate("/");
+      navigate("/", { replace: true });
     } catch (err) {
       console.error(err);
       alert("Error al eliminar la cuenta");
@@ -234,7 +248,6 @@ export default function UserProfile() {
         </div>
       )}
 
-      {/* Modal Confirmar eliminar Comercio */}
       {showDeleteComercioModal && (
         <div className="fixed inset-0 bg-[#111827] bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-[#1F2937] rounded-xl p-6 w-full max-w-lg relative">
@@ -259,7 +272,6 @@ export default function UserProfile() {
           </div>
         </div>
       )}
-
     </div>
   );
 }
