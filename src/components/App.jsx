@@ -4,7 +4,7 @@ import  '../css/App.css'
 import Login from './Login'
 import Home from './Home'
 import Register from './Register'
-
+import PrivateRoute from './PrivateRoute'
 import Home2 from './Home'
 import ComercioLogin from './ComercioLogin'
 import UserProfile from "./UserProfile";
