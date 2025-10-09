@@ -21,7 +21,14 @@ function App() {
       <Route path = "/home2" element = {<Home2/>}/>
       <Route path="/comercio/:id" element={<ComercioDetalle />} />
       <Route path = "/comercioLogin" element = {<ComercioLogin/>}/>
-      <Route path="/profile" element={<UserProfile hideActions={false} />} />
+      <Route
+  path="/profile"
+  element={
+    <PrivateRoute>
+      <UserProfile hideActions={false} />
+    </PrivateRoute>
+  }
+/>
       
     </Routes>
       

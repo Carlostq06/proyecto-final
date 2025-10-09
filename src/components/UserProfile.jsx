@@ -88,7 +88,7 @@ export default function UserProfile() {
     try {
       await deleteUser(user.id);
       logout();
-      <Link to="/" />;
+      navigate("/");
     } catch (err) {
       console.error(err);
       alert("Error al eliminar la cuenta");
