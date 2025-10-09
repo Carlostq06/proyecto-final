@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { updateUser, deleteUser, addComercio, getComercios, deleteComercio } from "../services/api";
-
+import { useNavigate } from "react-router-dom";
 export default function UserProfile() {
   const { user, logout, login } = useAuth();
   const [showEditModal, setShowEditModal] = useState(false);
@@ -11,7 +11,7 @@ export default function UserProfile() {
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: user?.name || "",
     email: user?.email || "",
@@ -88,7 +88,7 @@ export default function UserProfile() {
     try {
       await deleteUser(user.id);
       logout();
-      window.location.href = "/home2";
+      <Link to="/" />;
     } catch (err) {
       console.error(err);
       alert("Error al eliminar la cuenta");

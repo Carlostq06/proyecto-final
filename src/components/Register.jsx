@@ -16,6 +16,7 @@ const RegisterSchema = Yup.object().shape({
   userName: Yup.string()
     .min(4, "El nombre de usuario debe tener al menos 4 caracteres")
     .required("El nombre de usuario es obligatorio"),
+    
   email: Yup.string()
     .email("Formato de correo no válido")
     .required("El correo electrónico es obligatorio"),
